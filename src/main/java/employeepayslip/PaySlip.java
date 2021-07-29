@@ -9,25 +9,21 @@ import java.util.Scanner;
  */
 class PaySlip {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
-
-        // Debug print all args
-        for(int i = 0; i < args.length; i++){
-            System.out.println(args[i]);
-        }
+        // Prepare processor
+        InputProcessor processor = new InputProcessor();
 
         if(args.length > 0){
             // Attempt reading from file
-            System.out.println("[INFO] Args exist");
             try{
                 File inputFile = new File(args[0]);
                 Scanner scanner = new Scanner(inputFile);
 
-                // Print contents of file to console.
-                System.out.println("[INFO] Scanning for file content...");
+                // For each line, get the processor to produce output to the console.
+                // This could alternatively be delivered to a file for more practical applications...
+                // but this isn't really a practical application!
                 while(scanner.hasNextLine()){
                     String line = scanner.nextLine();
-                    System.out.println(line);
+                    System.out.println(processor.process(line)); // Print result to console.
                 }
                 
                 scanner.close();
