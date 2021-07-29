@@ -31,6 +31,7 @@ class PaySlip {
                 }
                 
                 scanner.close();
+                System.out.println("[INFO] Finished scanning. Scanner closed.");
             } catch (FileNotFoundException e){
                 System.out.println("File not found.");
                 e.printStackTrace();
