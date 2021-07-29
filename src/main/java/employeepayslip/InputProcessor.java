@@ -64,6 +64,9 @@ public class InputProcessor {
                 if(splitPaymentDate.length >= 2 && splitPaymentDate[1].length() >= 2){
                     try{
                         int detectedMonth = monthMap.get(splitPaymentDate[1].toUpperCase()); // < can throw NullPointerException
+
+                        // This is used later to make sure we have the correct amount of days in the given month, this year.
+                        // Leap years, February... all that fun stuff.
                         Calendar calendar = new GregorianCalendar(Calendar.getInstance().get(Calendar.YEAR), detectedMonth, 1);
                         
                         // Calculations (not rounded)
