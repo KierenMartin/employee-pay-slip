@@ -1,2 +1,5 @@
 # employee-pay-slip
-Project for Seisma coding test
+Private repo for Seisma coding test
+
+**Assumptions Made**
+  - ...none yet!
