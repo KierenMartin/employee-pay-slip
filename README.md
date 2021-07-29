@@ -13,6 +13,6 @@ Repo for Seisma coding test.
   - Alternatively, you can run the **Run With Input File.bat** if you have downloaded the entire project repo.
   - You could also run the **Compile With Maven.bat** file if you happen to have maven installed and use that to compile a fresh jar file.
 
-Additional notes:
+**Additional notes**
   - This project has been developed, tested and run in Visual Studio Code using jdk-14.
   - I was keen to set this up on an AWS EC2 instance, but had issues with setting up payment information for my account that I realise would not be solveable within a short period of time.
