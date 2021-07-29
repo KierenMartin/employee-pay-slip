@@ -48,51 +48,56 @@ public class InputProcessor {
         if(splitInput.length >= 5){
             String firstName = splitInput[0];
             String lastName = splitInput[1];
-            int annualSalary = Integer.valueOf(splitInput[2]);
 
-            // Trim off the % at the end of the super rate. It is assumed the format is respected and the % symbol is present.
-            float superRate = Integer.valueOf(splitInput[3].substring(0, splitInput[3].length() - 1)) / 100f;
-            
-            String paymentDate = splitInput[4];
+            try{
+                int annualSalary = Integer.valueOf(splitInput[2]);
 
-            // We need to get the month out of the payment date string. Split by whitespace...
-            String[] splitPaymentDate = paymentDate.split(" ");
+                // Trim off the % at the end of the super rate. It is assumed the format is respected and the % symbol is present.
+                float superRate = Integer.valueOf(splitInput[3].substring(0, splitInput[3].length() - 1)) / 100f;
+                
+                String paymentDate = splitInput[4];
 
-            // The first value will be a number, the second the month.
-            if(splitPaymentDate[1].length() >= 2){
-                try{
-                    int detectedMonth = monthMap.get(splitPaymentDate[1].toUpperCase()); // < can throw NullPointerException
-                    Calendar calendar = new GregorianCalendar(Calendar.getInstance().get(Calendar.YEAR), detectedMonth, 1);
-                    
-                    // Calculations (not rounded)
-                    float grossIncome = annualSalary / 12;
-                    float incomeTax = getTaxableIncome(annualSalary);
-                    float netIncome = grossIncome - incomeTax;
-                    float superAmount = grossIncome * superRate;
+                // We need to get the month out of the payment date string. Split by whitespace...
+                String[] splitPaymentDate = paymentDate.split(" ");
+
+                // The first value will be a number, the second the month.
+                if(splitPaymentDate.length >= 2 && splitPaymentDate[1].length() >= 2){
+                    try{
+                        int detectedMonth = monthMap.get(splitPaymentDate[1].toUpperCase()); // < can throw NullPointerException
+                        Calendar calendar = new GregorianCalendar(Calendar.getInstance().get(Calendar.YEAR), detectedMonth, 1);
+                        
+                        // Calculations (not rounded)
+                        float grossIncome = annualSalary / 12;
+                        float incomeTax = getTaxableIncome(annualSalary);
+                        float netIncome = grossIncome - incomeTax;
+                        float superAmount = grossIncome * superRate;
 
 
-                    // We should have everything we need now. It's time to construct the output string.
-                    // It IS possible to just do this in one big multi-liner, but I don't like that.
-                    String result = firstName + " " + lastName; // Name
-                    result += ",";
-                    result += "01 " + splitPaymentDate[1] + 
-                        " - " + 
-                        calendar.getActualMaximum(Calendar.DAY_OF_MONTH) + " " + splitPaymentDate[1]; // Pay Period
-                    result += ",";
-                    result += Math.round(grossIncome); // Gross Income
-                    result += ",";
-                    result += Math.round(incomeTax); // Income Tax
-                    result += ",";
-                    result += Math.round(netIncome); // Net Income
-                    result += ",";
-                    result += Math.round(superAmount); // Super
+                        // We should have everything we need now. It's time to construct the output string.
+                        // It IS possible to just do this in one big multi-liner, but I don't like that.
+                        String result = firstName + " " + lastName; // Name
+                        result += ",";
+                        result += "01 " + splitPaymentDate[1] + 
+                            " - " + 
+                            calendar.getActualMaximum(Calendar.DAY_OF_MONTH) + " " + splitPaymentDate[1]; // Pay Period
+                        result += ",";
+                        result += Math.round(grossIncome); // Gross Income
+                        result += ",";
+                        result += Math.round(incomeTax); // Income Tax
+                        result += ",";
+                        result += Math.round(netIncome); // Net Income
+                        result += ",";
+                        result += Math.round(superAmount); // Super
 
-                    return result;
-                } catch(NullPointerException e){
-                    return "[ERROR] The given month " + splitPaymentDate[1] + " is not recognised.";
+                        return result;
+                    } catch(NullPointerException e){
+                        return "[ERROR] The given month " + splitPaymentDate[1] + " is not recognised.";
+                    }
                 }
+                return "[ERROR] Payment date is malformed. Please make sure to follow the desired format, such as '01 March - 31 March'";
+            } catch(NumberFormatException e){
+                return "[ERROR] Malformed input. Please check the format of your input file.";
             }
-            return "[ERROR] Payment date is malformed. Please make sure to follow the desired format.\nExample: 01 March - 31 March";
         }
         return "[ERROR] Input processor expected 5 values, got " + splitInput.length;
     }
