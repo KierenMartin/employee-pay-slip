@@ -1,6 +1,6 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>payslip</groupId>
+  <groupId>com.kierenmartin.payslip</groupId>
   <artifactId>employee-pay-slip</artifactId>
   <version>1</version>
   <packaging>jar</packaging>
