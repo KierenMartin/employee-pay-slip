@@ -48,17 +48,16 @@ public class InputProcessor {
         if(splitInput.length >= 5){
             String firstName = splitInput[0];
             String lastName = splitInput[1];
+            String paymentDate = splitInput[4];
+            
+            // We need to get the month out of the payment date string. Split by whitespace...
+            String[] splitPaymentDate = paymentDate.split(" ");
 
             try{
-                int annualSalary = Integer.valueOf(splitInput[2]);
+                int annualSalary = Integer.valueOf(splitInput[2]); // < Can throw NumberFormatException
 
                 // Trim off the % at the end of the super rate. It is assumed the format is respected and the % symbol is present.
                 float superRate = Integer.valueOf(splitInput[3].substring(0, splitInput[3].length() - 1)) / 100f;
-                
-                String paymentDate = splitInput[4];
-
-                // We need to get the month out of the payment date string. Split by whitespace...
-                String[] splitPaymentDate = paymentDate.split(" ");
 
                 // The first value will be a number, the second the month.
                 if(splitPaymentDate.length >= 2 && splitPaymentDate[1].length() >= 2){
@@ -75,13 +74,11 @@ public class InputProcessor {
                         float netIncome = grossIncome - incomeTax;
                         float superAmount = grossIncome * superRate;
 
-
                         // We should have everything we need now. It's time to construct the output string.
                         // It IS possible to just do this in one big multi-liner, but I don't like that.
                         String result = firstName + " " + lastName; // Name
                         result += ",";
-                        result += "01 " + splitPaymentDate[1] + 
-                            " - " + 
+                        result += "01 " + splitPaymentDate[1] + " - " + 
                             calendar.getActualMaximum(Calendar.DAY_OF_MONTH) + " " + splitPaymentDate[1]; // Pay Period
                         result += ",";
                         result += Math.round(grossIncome); // Gross Income
@@ -111,7 +108,7 @@ public class InputProcessor {
      * @param income The income earned before super, which will be taxed.
      * @return The amount of tax, as a floating point value.
      */
-    public float getTaxableIncome(float income){
+    private float getTaxableIncome(float income){
         TaxData taxObject = new TaxData();
         if(income <= 18200f){
             // No tax!
