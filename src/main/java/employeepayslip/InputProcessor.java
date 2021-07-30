@@ -19,6 +19,7 @@ public class InputProcessor {
 
     public InputProcessor(){
         // This feels like a silly, unnecessary step, but I couldn't seem to find a way around it.
+        // At least dictionaries/maps are fast... but I wonder if it could be faster?
         monthMap.put("JANUARY", Calendar.JANUARY);
         monthMap.put("FEBRUARY", Calendar.FEBRUARY);
         monthMap.put("MARCH", Calendar.MARCH);
@@ -41,17 +42,14 @@ public class InputProcessor {
      * Output (if not an error) is presented in the following format: name, pay period, gross income, income tax, net income, super
      */
     public String process(String input){
-        // Trim whitespace, split input.
-        input = input.trim();
+        // Split input.
+        // This trim is optional, seeing as most csv files will probably not have leading or trailing whitespace.
+        // input = input.trim();
         String[] splitInput = input.split(",");
 
         if(splitInput.length >= 5){
             String firstName = splitInput[0];
             String lastName = splitInput[1];
-            String paymentDate = splitInput[4];
-            
-            // We need to get the month out of the payment date string. Split by whitespace...
-            String[] splitPaymentDate = paymentDate.split(" ");
 
             try{
                 int annualSalary = Integer.valueOf(splitInput[2]); // < Can throw NumberFormatException
@@ -59,14 +57,20 @@ public class InputProcessor {
                 // Trim off the % at the end of the super rate. It is assumed the format is respected and the % symbol is present.
                 float superRate = Integer.valueOf(splitInput[3].substring(0, splitInput[3].length() - 1)) / 100f;
 
+                String paymentDate = splitInput[4];
+                
+                // We need to get the month out of our payment date string. Split by whitespace...
+                // The format is the split string should be something like {"01", "March", "-", "31", "March"}
+                String[] splitPaymentDate = paymentDate.split(" ");
+
                 // The first value will be a number, the second the month.
                 if(splitPaymentDate.length >= 2 && splitPaymentDate[1].length() >= 2){
                     try{
-                        int detectedMonth = monthMap.get(splitPaymentDate[1].toUpperCase()); // < can throw NullPointerException
+                        int detectedMonthName = monthMap.get(splitPaymentDate[1].toUpperCase()); // < can throw NullPointerException
 
                         // This is used later to make sure we have the correct amount of days in the given month, this year.
                         // Leap years, February... all that fun stuff.
-                        Calendar calendar = new GregorianCalendar(Calendar.getInstance().get(Calendar.YEAR), detectedMonth, 1);
+                        Calendar calendar = new GregorianCalendar(Calendar.getInstance().get(Calendar.YEAR), detectedMonthName, 1);
                         
                         // Calculations (not rounded)
                         float grossIncome = annualSalary / 12;
@@ -75,7 +79,7 @@ public class InputProcessor {
                         float superAmount = grossIncome * superRate;
 
                         // We should have everything we need now. It's time to construct the output string.
-                        // It IS possible to just do this in one big multi-liner, but I don't like that.
+                        // It IS possible to just do this in one line, but that will be... messy.
                         String result = firstName + " " + lastName; // Name
                         result += ",";
                         result += "01 " + splitPaymentDate[1] + " - " + 

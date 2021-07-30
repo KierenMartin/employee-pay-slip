@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 /**
  * The main class.
+ * Use the PaySlip program by feeding in a csv file as the first argument.
+ * If the file is valid, it will read each line, producing an output for each line read.
  */
 class PaySlip {
     public static void main(String[] args) {
@@ -19,8 +21,8 @@ class PaySlip {
                 Scanner scanner = new Scanner(inputFile);
 
                 // For each line, get the processor to produce output to the console.
-                // This could alternatively be delivered to a file for more practical applications...
-                // but this isn't really a practical application!
+                // This could easily be delivered to a file for more practical applications...
+                // but this isn't *really* a practical application!
                 while(scanner.hasNextLine()){
                     String line = scanner.nextLine();
                     System.out.println(processor.process(line)); // Print result to console.
