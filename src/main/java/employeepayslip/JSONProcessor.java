@@ -13,10 +13,10 @@ public class JSONProcessor {
         JSONArray jArray = new JSONArray(input);
 
         // TODO
-        // - REMOVE DEBUG MESSAGES
-        // - Implement JSON processing
-        // - Implement processing of tax/income values, etc.
-        // - Implement JSON output
+        // - REMOVE DEBUG MESSAGES ONCE COMPLETED
+        // - Implement JSON processing (get json, load into objects for use)
+        // - Implement processing of tax/income values, etc. (need a PaySlipProcessor object that does this?)
+        // - Implement JSON output (JSONable class helps here with its toJson function)
         System.out.println("[JSONProcessor] JSON String inputted: \n" + input);
         System.out.println("[JSONProcessor] JSONArray Object is " + jArray);
         System.out.println("[JSONProcessor] Unloading JSONArray contents...");
