@@ -1,2 +1,2 @@
-java -jar "target\employee-pay-slip-1.jar" "input.csv"
+java -jar "target\employee-pay-slip-1.jar" "jsoninput.json"
 pause

@@ -1,2 +1,6 @@
-main\java\employeepayslip\InputProcessor.class
-main\java\employeepayslip\TaxData.class
+employeepayslip\EmployeePaySlip.class
+employeepayslip\InputProcessor.class
+employeepayslip\JSONProcessor.class
+employeepayslip\Employee.class
+employeepayslip\TaxData.class
+employeepayslip\PaySlip.class

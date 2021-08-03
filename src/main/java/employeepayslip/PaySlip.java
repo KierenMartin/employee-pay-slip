@@ -1,41 +1,51 @@
 
-package main.java.employeepayslip;
+package employeepayslip;
 
-import java.io.*;
-import java.util.Scanner;
+import org.json.JSONObject;
 
 /**
- * The main class.
- * Use the PaySlip program by feeding in a csv file as the first argument.
- * If the file is valid, it will read each line, producing an output for each line read.
+ * The PaySlip class deals with holding output information.
+ * This includes an employee object, along with date, grossIncome, incomeTax, superannuation and netIncome
  */
-class PaySlip {
-    public static void main(String[] args) {
-        // Prepare processor
-        InputProcessor processor = new InputProcessor();
+public class PaySlip implements JSONable {
 
-        if(args.length > 0){
-            // Attempt reading from file
-            try{
-                File inputFile = new File(args[0]);
-                Scanner scanner = new Scanner(inputFile);
+    private Employee employee;
+    private String fromDate;
+    private String toDate;
+    private int grossIncome;
+    private int superannuation;
+    private int netIncome;
 
-                // For each line, get the processor to produce output to the console.
-                // This could easily be delivered to a file for more practical applications...
-                // but this isn't *really* a practical application!
-                while(scanner.hasNextLine()){
-                    String line = scanner.nextLine();
-                    System.out.println(processor.process(line)); // Print result to console.
-                }
-                
-                scanner.close();
-            } catch (FileNotFoundException e){
-                System.out.println("File not found.");
-                e.printStackTrace();
-            }
-        }else{
-            System.out.println("[ERROR] Launch parameters were not specified. An input file path needs to be given.");
-        }
-
+    public PaySlip(Employee _employee, String _fromDate, String _toDate, int _grossIncome, int _superannuation, int _netIncome){
+        employee = _employee;
+        fromDate = _fromDate;
+        toDate = _toDate;
+        grossIncome = _grossIncome;
+        superannuation = _superannuation;
+        netIncome = _netIncome;
     }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject obj = new JSONObject();
+        obj.put("employee", employee.toJson());
+        obj.put("fromDate", fromDate);
+        obj.put("toDate", toDate);
+        obj.put("grossIncome", grossIncome);
+        obj.put("superannuation", superannuation);
+        obj.put("netIncome", netIncome);
+
+        return obj;
+    }
+
+    @Override
+    public void fromJson(JSONObject sourceObject) {
+        employee.fromJson(sourceObject.getJSONObject("employee")); // Convert the employee using its own fromJson method.
+        fromDate = sourceObject.getString("fromDate");
+        toDate = sourceObject.getString("toDate");
+        grossIncome = Integer.parseInt(sourceObject.getString("grossIncome"));
+        superannuation = Integer.parseInt(sourceObject.getString("superannuation"));
+        netIncome = Integer.parseInt(sourceObject.getString("netIncome"));
+    }
+    
 }

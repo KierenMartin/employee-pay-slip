@@ -1,11 +1,13 @@
 
-package main.java.employeepayslip;
+package employeepayslip;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.HashMap;
 
+// Note to self: Dealing with money means use BigDecimal for MAXIMUM precision (or else we can lose the real money value over time)
+// This is an old file! We don't use it any more, but it's kept around for now, just in case.
 /**
  * This class accepts input in a csv format for the employee pay slip application.
  * Its main function, process(), returns a csv-formatted string with the results!
@@ -110,7 +112,7 @@ public class InputProcessor {
      * With the help of the TaxData class, this function does the calculations required to determine
      * how much of the given income value is taxable.
      * @param income The income earned before super, which will be taxed.
-     * @return The amount of tax, as a floating point value.
+     * @return The amount of tax, as a BigDecimal value.
      */
     private float getTaxableIncome(float income){
         TaxData taxObject = new TaxData();
@@ -151,8 +153,8 @@ public class InputProcessor {
  * the total amount of tax owed is when running its calculateTaxTotal function.
  */
 class TaxData {
-    public int taxFlat; // A flat amount of tax added to the result.
-    public int taxStart; // The value beyond which tax is applicable by percentage.
+    public float taxFlat; // A flat amount of tax added to the result.
+    public float taxStart; // The value beyond which tax is applicable by percentage.
     public float taxPercentage; // % for each $1 over taxStart
 
     public float calculateTaxTotal(float income){

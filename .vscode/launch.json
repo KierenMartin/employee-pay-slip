@@ -12,10 +12,10 @@
         },
         {
             "type": "java",
-            "name": "Launch PaySlip",
+            "name": "Launch Using Input File",
             "request": "launch",
-            "mainClass": "main.java.employeepayslip.PaySlip",
-            "args": ["${workspaceFolder}/resources/testinput.csv"]
+            "mainClass": "employeepayslip.EmployeePaySlip",
+            "args": ["${workspaceFolder}/src/resources/jsoninput.json"]
         }
     ]
 }
