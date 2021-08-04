@@ -9,14 +9,20 @@ import java.util.Locale;
 
 /**
  * The PaySlip class deals with holding output information.
- * This includes an employee object, along with date, grossIncome, incomeTax, superannuation and netIncome
+ * This includes an employee object, along with date, grossIncome, incomeTax, superannuation and netIncome.
+ * The PaySlip will auto-calculate these values if given a new Employee object using either its constructor
+ * or setEmployee setter.
  */
 public class PaySlip extends JSONable {
 
     // We can change the decimal precision to get more accurate results on divisions.
     // After all, we're dealing with money, so we can't afford to lose track of it.
+    // Why is this needed? Well, without it we get indefinitely-long numbers quite often in our divisions,
+    // and BigDecimal will throw an error if that happens.
     private final static int decimalPrecision = 16;
 
+    // Your IDE will probably complain about these being 'unused'.
+    // GSON will use these, so don't remove them.
     private Employee employee;
     private String fromDate = "UNDEFINED";
     private String toDate = "UNDEFINED";
@@ -63,6 +69,11 @@ public class PaySlip extends JSONable {
         }
     }
 
+    /**
+     * Private function that calculates taxable income, based off of the income value given.
+     * @param income The income of the employee
+     * @return The taxable income (incomeTax).
+     */
     private BigDecimal getTaxableIncome(BigDecimal income){
         BigDecimal taxFlat;
         BigDecimal taxStart;

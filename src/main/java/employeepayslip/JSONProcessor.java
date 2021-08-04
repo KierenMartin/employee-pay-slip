@@ -24,11 +24,12 @@ public class JSONProcessor {
         // Use [json object here].getDATATYPE(String key) to retrieve values.
         for(int i = 0; i < inArray.length(); i++){
             /*
-                So, what do we need to do here?
+                So, what do we do here?
                 - For each object in the array:
-                    - Create a new Employee object and load data into it.
+                    - Get the JSONObject at index i.
+                    - Create a new Employee object and load data into it from that object.
                     - Create a new PaySlip object and load the employee object into it.
-                    - Output the PaySlip object as a JSON string.
+                    - Load the pay slip object into an array, which will be outputted later as JSON using GSON.
             */
             // Get this object. It'll be an employee's data.
             JSONObject jObj = inArray.getJSONObject(i);
@@ -43,25 +44,3 @@ public class JSONProcessor {
     }
 
 }
-
-/*
-Some code snippets that I found helpful:
-
--- https://stackoverflow.com/questions/2591098/how-to-parse-json-in-java
-import org.json.*;
-
-String jsonString = ... ; //assign your JSON String here
-JSONObject obj = new JSONObject(jsonString);
-String pageName = obj.getJSONObject("pageInfo").getString("pageName");
-
-JSONArray arr = obj.getJSONArray("posts"); // notice that `"posts": [...]`
-for (int i = 0; i < arr.length(); i++)
-{
-    String post_id = arr.getJSONObject(i).getString("post_id");
-    ......
-}
-
--- http://theoryapp.com/parse-json-in-java/
-
-Thanks stack overflow, I'll take it from here~!
-*/

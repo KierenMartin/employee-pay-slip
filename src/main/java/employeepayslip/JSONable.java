@@ -5,7 +5,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 /**
- * A parent class for classes that support the ability to write themselves as JSONObjects,
+ * A parent class for classes that should support the ability to write themselves as JSON strings
+ * with a simple toJson function.
  */
 public class JSONable {
     /**
