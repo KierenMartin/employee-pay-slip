@@ -5,8 +5,9 @@ import org.json.JSONObject;
 
 /**
  * The Employee class holds the data for a single employee's pay information.
+ * This data can be loaded from a JSONObject if needed.
  */
-public class Employee implements JSONable {
+public class Employee extends JSONable implements IJSONLoadable {
     
     private String firstName;
     private String lastName;
@@ -22,26 +23,34 @@ public class Employee implements JSONable {
         paymentMonth = _paymentMonth;
         superRate = _superRate;
     }
+    public Employee(JSONObject json){
+        fromJson(json);
+    }
 
-    @Override
-    public JSONObject toJson() {
-        JSONObject obj = new JSONObject();
-        obj.put("firstName", firstName);
-        obj.put("lastName", lastName);
-        obj.put("annualSalary", annualSalary);
-        obj.put("paymentMonth", paymentMonth);
-        obj.put("superRate", superRate);
-
-        return obj;
+    // Getters
+    public String getFirstName(){
+        return firstName;
+    }
+    public String getLastName(){
+        return lastName;
+    }
+    public int getAnnualSalary(){
+        return annualSalary;
+    }
+    public int getPaymentMonth(){
+        return paymentMonth;
+    }
+    public float getSuperRate(){
+        return superRate;
     }
 
     @Override
     public void fromJson(JSONObject sourceObject) {
         firstName = sourceObject.getString("firstName");
         lastName = sourceObject.getString("lastName");
-        annualSalary = Integer.parseInt(sourceObject.getString("annualSalary"));
-        paymentMonth = Integer.parseInt(sourceObject.getString("paymentMonth"));
-        superRate = Float.parseFloat(sourceObject.getString("superRate"));
+        annualSalary = sourceObject.getInt("annualSalary");
+        paymentMonth = sourceObject.getInt("paymentMonth");
+        superRate = sourceObject.getFloat("superRate");
     }
     
 }

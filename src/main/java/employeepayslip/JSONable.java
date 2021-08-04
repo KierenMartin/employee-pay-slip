@@ -1,19 +1,20 @@
 
 package employeepayslip;
 
-import org.json.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 /**
- * An interface class for classes that support the ability to write themselves as JSONObjects,
- * while also being able to read in a JSONObject and retrieve the data from that.
+ * A parent class for classes that support the ability to write themselves as JSONObjects,
  */
-public interface JSONable {
+public class JSONable {
     /**
      * 
-     * @return A JSONObject representing this object.
+     * @return A String representing this object as JSON.
      */
-    public JSONObject toJson();
-    /**
-     * Loads data from the JSONObject given.
-     */
-    public void fromJson(JSONObject sourceObject);
+    public String toJson() {
+        // Gson with pretty indentation setting
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return gson.toJson(this, this.getClass());
+    }
 }

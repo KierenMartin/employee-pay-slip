@@ -1,7 +1,14 @@
 
 package employeepayslip;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * This class will handle processing and retrieving information from the JSON given
@@ -10,25 +17,29 @@ import org.json.JSONArray;
 public class JSONProcessor {
 
     public String process(String input){
-        JSONArray jArray = new JSONArray(input);
-
-        // TODO
-        // - REMOVE DEBUG MESSAGES ONCE COMPLETED
-        // - Implement JSON processing (get json, load into objects for use)
-        // - Implement processing of tax/income values, etc. (need a PaySlipProcessor object that does this?)
-        // - Implement JSON output (JSONable class helps here with its toJson function)
-        System.out.println("[JSONProcessor] JSON String inputted: \n" + input);
-        System.out.println("[JSONProcessor] JSONArray Object is " + jArray);
-        System.out.println("[JSONProcessor] Unloading JSONArray contents...");
+        JSONArray inArray = new JSONArray(input);
+        List<Object> outArray = new ArrayList<Object>();
 
         // Get all JSON objects from the array
-        // Use [json object here].getString(String key) to retrieve values.
+        // Use [json object here].getDATATYPE(String key) to retrieve values.
+        for(int i = 0; i < inArray.length(); i++){
+            /*
+                So, what do we need to do here?
+                - For each object in the array:
+                    - Create a new Employee object and load data into it.
+                    - Create a new PaySlip object and load the employee object into it.
+                    - Output the PaySlip object as a JSON string.
+            */
+            // Get this object. It'll be an employee's data.
+            JSONObject jObj = inArray.getJSONObject(i);
 
-        for(int i = 0; i < jArray.length(); i++){
-            System.out.println("Object " + i + ": " + jArray.getJSONObject(i));
+            // Create employee and pay slip, store in output array.
+            Employee newEmployee = new Employee(jObj);
+            PaySlip newPaySlip = new PaySlip(newEmployee);
+            outArray.add(newPaySlip);
         }
-
-        return "...nothing left to do!";
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return gson.toJson(outArray, outArray.getClass());
     }
 
 }

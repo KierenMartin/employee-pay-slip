@@ -7,6 +7,13 @@
     "superRate":0.09
   },
   {
+    "firstName":"Kieren",
+    "lastName":"Martin",
+    "annualSalary":60000,
+    "paymentMonth":2,
+    "superRate":0.10
+  },
+  {
     "firstName":"Ryan",
     "lastName":"Chen",
     "annualSalary":120000,
