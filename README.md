@@ -17,3 +17,4 @@ Repo for Seisma coding test.
 **Additional notes**
   - This project has been developed, tested and run in Visual Studio Code using jdk-14 on Windows 10.
   - Erroneous input may or may not be correctly dealt with, but there has been attempts at preventing as many cases as possible that would cause a crash.
+  - The InputProcessor class is no longer used.
