@@ -29,6 +29,10 @@ public class TaxBrackets {
         brackets.add(new TaxBracket(annualSalary, new BigDecimal(180000), new BigDecimal(Integer.MAX_VALUE), new BigDecimal(54232), new BigDecimal(0.45)));
     }
 
+    /**
+     * After creating the TaxBrackets object with the desired salary, you can use this function to get the associated TaxBracket object.
+     * @return A TaxBracket object matching the desired tax bracket.
+     */
     public TaxBracket getBracket(){
         for(int i = 0; i < brackets.size(); i++){
             if(storedSalary.compareTo(brackets.get(i).getBracketEnd()) < 1){

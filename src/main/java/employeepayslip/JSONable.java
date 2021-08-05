@@ -10,7 +10,7 @@ import com.google.gson.GsonBuilder;
  */
 public class JSONable {
     /**
-     * 
+     * Converts this object's information into a JSON string.
      * @return A String representing this object as JSON.
      */
     public String toJson() {

@@ -9,5 +9,4 @@ public class CONSTANTS {
     // Why is this needed? Well, without it we get indefinitely-long numbers quite often in our divisions,
     // and BigDecimal will throw an error if that happens.
     public static final int DECIMALPRECISION = 16;
-    
 }
