@@ -14,13 +14,6 @@ import java.util.Locale;
  * or setEmployee setter.
  */
 public class PaySlip extends JSONable {
-
-    // We can change the decimal precision to get more accurate results on divisions.
-    // After all, we're dealing with money, so we can't afford to lose track of it.
-    // Why is this needed? Well, without it we get indefinitely-long numbers quite often in our divisions,
-    // and BigDecimal will throw an error if that happens.
-    private final static int decimalPrecision = 16;
-
     // Your IDE will probably complain about these being 'unused'.
     // GSON will use these, so don't remove them.
     private Employee employee;
@@ -56,7 +49,7 @@ public class PaySlip extends JSONable {
             toDate = calendar.getActualMaximum(Calendar.DAY_OF_MONTH) + " " + monthName;
 
             // Calculate incomes and taxes
-            BigDecimal unrounded_grossIncome = BigDecimal.valueOf(employee.getAnnualSalary()).divide(new BigDecimal(12), decimalPrecision, RoundingMode.HALF_UP);
+            BigDecimal unrounded_grossIncome = BigDecimal.valueOf(employee.getAnnualSalary()).divide(new BigDecimal(12), CONSTANTS.DECIMALPRECISION, RoundingMode.HALF_UP);
             BigDecimal unrounded_incomeTax = getTaxableIncome(new BigDecimal(employee.getAnnualSalary()));
             BigDecimal unrounded_netIncome = unrounded_grossIncome.subtract(unrounded_incomeTax);
             BigDecimal unrounded_superannuation = unrounded_grossIncome.multiply(BigDecimal.valueOf(employee.getSuperRate()));
@@ -75,37 +68,8 @@ public class PaySlip extends JSONable {
      * @return The taxable income (incomeTax).
      */
     private BigDecimal getTaxableIncome(BigDecimal income){
-        BigDecimal taxFlat;
-        BigDecimal taxStart;
-        BigDecimal taxPercentage;
-
-        if(income.compareTo(new BigDecimal(18200)) < 1){
-            // No tax!
-            taxFlat = new BigDecimal(0);
-            taxStart = new BigDecimal(0);
-            taxPercentage = new BigDecimal(0);
-        }else
-        if(income.compareTo(new BigDecimal(37000)) < 1){
-            taxFlat = new BigDecimal(0);
-            taxStart = new BigDecimal(18200);
-            taxPercentage = new BigDecimal(0.19); // 19c/$
-        }else
-        if(income.compareTo(new BigDecimal(87000)) < 1){
-            taxFlat = new BigDecimal(3572);
-            taxStart = new BigDecimal(37000);
-            taxPercentage = new BigDecimal(0.325); // 32.5c/$
-        }else
-        if(income.compareTo(new BigDecimal(180000)) < 1){
-            taxFlat = new BigDecimal(19822);
-            taxStart = new BigDecimal(87000);
-            taxPercentage = new BigDecimal(0.37); // 37c/$
-        }else{
-            taxFlat = new BigDecimal(54232);
-            taxStart = new BigDecimal(180000);
-            taxPercentage = new BigDecimal(0.45); // 45c/$
-        }
-
-        return income.subtract(taxStart).multiply(taxPercentage).add(taxFlat).divide(new BigDecimal(12), decimalPrecision, RoundingMode.HALF_UP); // Per month, not per year.
+        TaxBrackets brackets = new TaxBrackets(income);
+        return brackets.getBracket().getTaxableIncome();
     }
 
 }
