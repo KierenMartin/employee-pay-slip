@@ -1,6 +1,10 @@
-employeepayslip\EmployeePaySlip.class
-employeepayslip\InputProcessor.class
-employeepayslip\JSONProcessor.class
-employeepayslip\Employee.class
-employeepayslip\TaxData.class
-employeepayslip\PaySlip.class
+com\kierenmartin\payslip\Application.class
+com\kierenmartin\payslip\IJSONLoadable.class
+com\kierenmartin\payslip\JSONable.class
+com\kierenmartin\payslip\CONSTANTS.class
+com\kierenmartin\payslip\JSONProcessor.class
+com\kierenmartin\payslip\TaxBrackets.class
+com\kierenmartin\payslip\TaxBracket.class
+com\kierenmartin\payslip\PaySlip.class
+com\kierenmartin\payslip\EmployeePaySlip.class
+com\kierenmartin\payslip\Employee.class
