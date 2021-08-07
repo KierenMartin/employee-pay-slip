@@ -8,7 +8,7 @@ Repo for Seisma coding test.
   - Annual salaries inputted into the program are assumed to be integer values.
   - Months are inputted into the program as numbers in JSON, where 1 is January and 12 is December.
 
-**How To Run**
+**How To Run**  
   On your local machine, it's possible to run this using the following steps (tested on Windows 10):
   1. Download project files.
   2. Open a command prompt and navigate to the project folder.
