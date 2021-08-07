@@ -9,10 +9,17 @@ Repo for Seisma coding test.
   - Months are inputted into the program as numbers in JSON. See *src/resources/jsoninput.json* for proof of this.
 
 **How To Run**
-  *These methods have only been tested in a Windows 10 environment*
-  - To run the program, download the **target\employee-pay-slip-1.jar** file and run it from the command line using **java -jar employee-pay-slip-1.jar "input\file\location.csv"**.
-  - Alternatively, you can run the **Run With Input File.bat** if you have downloaded the entire project repo.
-  - You could also run the **Compile With Maven.bat** file if you happen to have maven installed and use that to compile a fresh jar file.
+  On your local machine, it's possible to run this using the following steps (tested on Windows 10):
+  1. Download project files.
+  2. Open a command prompt and navigate to the project folder.
+  3. Run the command `mvnw spring-boot:run`
+  4. You should see the Spring Boot ASCII at some point and the command prompt will not return to accepting input.
+
+  At this point, it should be running.
+  You can test if it is running by feeding it some JSON:
+  `curl localhost:8080 -X POST -d {} -H "Content-type: text/plain"`
+  It should return an error:
+  `A JSONArray text must start with '[' at 1 [character 2 line 1]`
 
 **Additional notes**
   - This project has been developed, tested and run in Visual Studio Code using jdk-14 on Windows 10.
