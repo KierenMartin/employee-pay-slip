@@ -17,6 +17,7 @@ public class EmployeePaySlip {
 	@PostMapping(value = "/", consumes = "text/plain")
 	public String getPlaintextPost(@RequestBody String string) {
         // Use JSONProcessor object
+        System.out.println("Processing string: " + string);
         JSONProcessor processor = new JSONProcessor();
         return processor.process(string); // Return result of processing...
     }
