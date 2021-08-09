@@ -1,6 +1,7 @@
 
 package com.kierenmartin.payslip;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController // < Ready for use by Spring MVC to handle web requests.
 public class EmployeePaySlip {
     
+    // Used for making sure tests are working.
+    // If somehow the ping test fails, something is TERRIBLY wrong.
+	@GetMapping(value = "/ping")
+	public String ping() {
+        return "Pong!";
+    }
+
 	@PostMapping(value = "/", consumes = "text/plain")
 	public String getPlaintextPost(@RequestBody String string) {
         // Use JSONProcessor object
