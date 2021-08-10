@@ -45,12 +45,13 @@ public class ProcessorTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void jsonExistenceTest() throws Exception {
+	public void jsonFinalExistenceTest() throws Exception {
 		mock.perform(
 			post("/")
 			.content(exampleJson)
 			.contentType(MediaType.TEXT_PLAIN)
 			.accept(MediaType.TEXT_PLAIN))
+			.andDo(print())
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$[0].employee").exists());
 	}
@@ -61,29 +62,79 @@ public class ProcessorTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void jsonEmployeeNameTest() throws Exception {
+	public void jsonFinalEmployeeNameTest() throws Exception {
 		mock.perform(
 			post("/")
 			.content(exampleJson)
 			.contentType(MediaType.TEXT_PLAIN)
 			.accept(MediaType.TEXT_PLAIN))
+			.andDo(print())
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$[0].employee.firstName").value("David"));
 	}
 
 	/**
-	 * Tests that calculations are working properly for incomeTax.
+	 * Tests that output is working properly for grossIncome.
 	 * @throws Exception
 	 */
 	@Test
-	public void jsonIncomeTaxTest() throws Exception {
+	public void jsonFinalGrossIncomeTest() throws Exception {
 		mock.perform(
 			post("/")
 			.content(exampleJson)
 			.contentType(MediaType.TEXT_PLAIN)
 			.accept(MediaType.TEXT_PLAIN))
+			.andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$[0].grossIncome").value(5004));
+	}
+
+	/**
+	 * Tests that output is working properly for incomeTax.
+	 * @throws Exception
+	 */
+	@Test
+	public void jsonFinalIncomeTaxTest() throws Exception {
+		mock.perform(
+			post("/")
+			.content(exampleJson)
+			.contentType(MediaType.TEXT_PLAIN)
+			.accept(MediaType.TEXT_PLAIN))
+			.andDo(print())
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$[0].incomeTax").value(922));
+	}
+
+	/**
+	 * Tests that output is working properly for superannuation.
+	 * @throws Exception
+	 */
+	@Test
+	public void jsonFinalSuperannuationTest() throws Exception {
+		mock.perform(
+			post("/")
+			.content(exampleJson)
+			.contentType(MediaType.TEXT_PLAIN)
+			.accept(MediaType.TEXT_PLAIN))
+			.andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$[0].superannuation").value(450));
+	}
+
+	/**
+	 * Tests that output is working properly for netIncome.
+	 * @throws Exception
+	 */
+	@Test
+	public void jsonFinalNetIncomeTest() throws Exception {
+		mock.perform(
+			post("/")
+			.content(exampleJson)
+			.contentType(MediaType.TEXT_PLAIN)
+			.accept(MediaType.TEXT_PLAIN))
+			.andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$[0].netIncome").value(4082));
 	}
 
 }
