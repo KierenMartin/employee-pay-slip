@@ -3,11 +3,9 @@ FROM maven:3.6.1-jdk-8-alpine AS MAVEN_BUILD
  
 COPY ./ ./
 
-# change directory tp /app
-WORKDIR /app
-# copy pom.xml from context into image
-COPY pom.xml /app/pom.xml
-# run from /app directory which now contains a pom.xml, should work
+# explicitly copy pom.xml
+COPY pom.xml pom.xml
+# now guaranteed to contain pom.xml, should work?
 RUN mvn clean package -e -X
 
 # Second stage
