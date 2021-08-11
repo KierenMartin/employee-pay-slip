@@ -6,7 +6,7 @@ COPY ./ ./
 # explicitly copy pom.xml
 COPY pom.xml pom.xml
 # now guaranteed to contain pom.xml, should work?
-RUN mvn clean package -e -X
+RUN mvn clean package
 
 # Second stage
 FROM openjdk:8-jre-alpine3.9
