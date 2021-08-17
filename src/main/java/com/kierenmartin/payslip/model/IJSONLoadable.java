@@ -1,5 +1,5 @@
 
-package com.kierenmartin.payslip;
+package com.kierenmartin.payslip.model;
 
 import org.json.JSONObject;
 

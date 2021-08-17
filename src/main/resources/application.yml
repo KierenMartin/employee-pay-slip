@@ -1,0 +1,22 @@
+tax-bracket-list:
+  taxBrackets:
+  - bracketStart: 0
+    bracketEnd: 18200
+    taxFlat: 0
+    taxPercentage: 0
+  - bracketStart: 18200
+    bracketEnd: 37000
+    taxFlat: 0
+    taxPercentage: 0.19
+  - bracketStart: 37000
+    bracketEnd: 87000
+    taxFlat: 3572
+    taxPercentage: 0.325
+  - bracketStart: 87000
+    bracketEnd: 180000
+    taxFlat: 19822
+    taxPercentage: 0.37
+  - bracketStart: 180000
+    bracketEnd: 99999999
+    taxFlat: 54232
+    taxPercentage: 0.45

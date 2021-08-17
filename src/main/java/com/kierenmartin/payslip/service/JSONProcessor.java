@@ -1,11 +1,14 @@
 
-package com.kierenmartin.payslip;
+package com.kierenmartin.payslip.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.kierenmartin.payslip.model.Employee;
+import com.kierenmartin.payslip.model.PaySlip;
+import com.kierenmartin.payslip.model.TaxBrackets;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,6 +19,12 @@ import org.json.JSONObject;
  * as input to the program, 
  */
 public class JSONProcessor {
+
+    private TaxBrackets taxBrackets;
+
+    public JSONProcessor(TaxBrackets _taxBrackets){
+        taxBrackets = _taxBrackets;
+    }
 
     public String process(String input) throws JSONException{
         try {
@@ -39,6 +48,10 @@ public class JSONProcessor {
                 // Create employee and pay slip, store in output array.
                 Employee newEmployee = new Employee(jObj);
                 PaySlip newPaySlip = new PaySlip(newEmployee);
+                
+                PaySlipCalculator calc = new PaySlipCalculator(newPaySlip, taxBrackets);
+                calc.updatePaySlipData();
+                
                 outArray.add(newPaySlip);
             }
             Gson gson = new GsonBuilder().setPrettyPrinting().create();

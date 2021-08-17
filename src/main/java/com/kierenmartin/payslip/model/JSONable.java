@@ -1,5 +1,5 @@
 
-package com.kierenmartin.payslip;
+package com.kierenmartin.payslip.model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

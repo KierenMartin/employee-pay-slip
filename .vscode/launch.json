@@ -12,10 +12,9 @@
         },
         {
             "type": "java",
-            "name": "Launch Using Input File",
+            "name": "Launch Spring Boot Application",
             "request": "launch",
-            "mainClass": "employeepayslip.EmployeePaySlip",
-            "args": ["${workspaceFolder}/src/resources/jsoninput.json"]
+            "mainClass": "com.kierenmartin.payslip.Application"
         }
     ]
 }
