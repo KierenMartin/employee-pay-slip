@@ -3,9 +3,10 @@ FROM maven:3.6.1-jdk-8-alpine AS MAVEN_BUILD
 
 COPY ./ ./
 
-# explicitly copy pom.xml
+# Explicitly copy pom.xml
 COPY pom.xml pom.xml
-# now guaranteed to contain pom.xml, should work?
+
+# Now guaranteed to contain pom.xml, should work?
 RUN mvn clean package
 
 # Second stage
