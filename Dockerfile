@@ -3,7 +3,7 @@ FROM maven:3.6.1-jdk-8-alpine AS MAVEN_BUILD
 
 COPY ./ ./
 
-# Explicitly copy pom.xml
+# Explicitly copy pom.xml, to solve an issue
 COPY pom.xml pom.xml
 
 # Now guaranteed to contain pom.xml, should work?
